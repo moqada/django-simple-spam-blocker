@@ -2,6 +2,9 @@
 Django Simple Spam Blocker
 ##########################
 
+.. image:: https://secure.travis-ci.org/moqada/django-simple-spam-blocker.png?branch=master
+   :target: http://travis-ci.org/moqada/django-simple-spam-blocker/
+
 Django Simple Spam Blocker is blocking spam by regular expression.
 
 Filtering the following matters.
