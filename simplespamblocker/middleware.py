@@ -41,15 +41,17 @@ class SpamBlockMiddleware(object):
 
     def _is_spam(self, request, profile):
         site = get_current_site(request)
+        method = profile.get('method', None)
         regexes = self._get_regexes(site)
-        if regexes is None:
+        if regexes is None or method and request.method != method.upper():
             return False
         for key, regex in regexes.items():
             if key in ('remote_addr', 'http_referer', 'http_user_agent'):
                 value = request.META.get(key.upper(), '')
             else:
-                value = profile[key](request)
-            if regexes[key] and regexes[key].search(value):
+                func = profile.get(key, None)
+                value = func and func(request)
+            if value is not None and regexes[key] and regexes[key].search(value):
                 self._logging(u'Blocked spam by %s: %s' % (key, value))
                 self._logging(json.dumps(request.POST))
                 return True
@@ -71,4 +73,4 @@ class SpamBlockMiddleware(object):
                 return HttpResponse(rendered, status=403)
             else:
                 return HttpResponseForbidden('Your comment was detected as a SPAM')
-        return view_func(request, *view_args, **view_kwargs)
+        return None

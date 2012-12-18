@@ -45,6 +45,7 @@ Installation
        SIMPLESPAMBLOCKER_PROFILES = (
            # Sample for django's comment framework
            (r'^/comments/post/$', {
+               'method': 'post',
                'author': lambda request: request.POST.get('name', ''),
                'email': lambda request: request.POST.get('email', ''),
                'url': lambda request: request.POST.get('url', ''),

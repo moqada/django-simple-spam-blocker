@@ -7,6 +7,16 @@ from simplespamblocker import settings as app_settings
 
 DEFAULT_PROFILES = (
     (r'^/comments/post/$', {
+        'method': 'post',
+        'author': lambda request: request.POST.get('name', ''),
+        'email': lambda request: request.POST.get('email', ''),
+        'url': lambda request: request.POST.get('url', ''),
+        'content': lambda request: request.POST.get('comment', ''),
+    }),
+)
+
+DEFAULT_PROFILES_WITHOUT_METHOD = (
+    (r'^/comments/post/$', {
         'author': lambda request: request.POST.get('name', ''),
         'email': lambda request: request.POST.get('email', ''),
         'url': lambda request: request.POST.get('url', ''),
@@ -117,6 +127,16 @@ class BlockMiddlewareValidProfileTests(BlockMiddlewareTestCase):
         res = self._post_comment()
         self.assertContains(res, 'Your comment was detected as a SPAM', status_code=403)
 
+    def test_it_method(self):
+        """ blocked only method on profile
+        """
+        self._update_option(block_remote_addr='127.0.0.1')
+        res = self._post_comment()
+        self.assertContains(res, 'Your comment was detected as a SPAM', status_code=403)
+        # through middleware when different method
+        res = self.client.get('/comments/post/')
+        self.assertEqual(res.status_code, 405)  # returned comment views
+
 
 class BlockMiddlewareEmptyProfileTests(BlockMiddlewareTestCase):
 
@@ -133,6 +153,27 @@ class BlockMiddlewareEmptyProfileTests(BlockMiddlewareTestCase):
         self._update_option(block_remote_addr='127.0.0.1')
         res = self._post_comment()
         self.assertEqual(res.status_code, 400)  # Comment Bad Request
+
+
+class BlockMiddlewareNonMethodProfileTests(BlockMiddlewareTestCase):
+
+    def setUp(self):
+        # compatible under django 1.3
+        self.old_settings = getattr(settings, 'SIMPLESPAMBLOCKER_PROFILES', [])
+        settings.SIMPLESPAMBLOCKER_PROFILES = DEFAULT_PROFILES_WITHOUT_METHOD
+        super(BlockMiddlewareNonMethodProfileTests, self).setUp()
+
+    def tearDown(self):
+        settings.SIMPLESPAMBLOCKER_PROFILES = self.old_settings
+
+    def test_it(self):
+        """ all request become target
+        """
+        self._update_option(block_remote_addr='127.0.0.1')
+        res = self._post_comment()
+        self.assertEqual(res.status_code, 403)
+        res = self.client.get('/comments/post/')
+        self.assertEqual(res.status_code, 403)
 
 
 class BlockMiddlewareWithTemplateTests(BlockMiddlewareTestCase):
