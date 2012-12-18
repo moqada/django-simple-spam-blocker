@@ -1,4 +1,4 @@
-recursive-include simple_spamfilter/tests/templates *
+recursive-include simplespamblocker/tests/templates *
 include AUTHORS
 include LICENSE
 include README.rst
