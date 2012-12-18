@@ -81,4 +81,4 @@ Settings
 Others
 ======
 
-This project is Inspired by `django-spaminspector <http://github.com/lambdalisue/django-spaminspector>`.
+This project is Inspired by `django-spaminspector <http://github.com/lambdalisue/django-spaminspector>`_.
