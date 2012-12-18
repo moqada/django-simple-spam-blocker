@@ -1,0 +1,65 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Django Simple Spam Blocker package.
+# Masahiko Okada <moqada@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Django Simple Spam Blocker\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-18 20:37+0900\n"
+"PO-Revision-Date: 2012-12-18 20:29+0900\n"
+"Last-Translator: Masahiko Okada <moqada@gmail.com>\n"
+"Language-Team: Japanese <moqada@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: admin.py:37 models.py:18
+msgid "block author"
+msgstr "ブロックする送信者名"
+
+#: admin.py:38 models.py:20
+msgid "block content"
+msgstr "ブロックする本文"
+
+#: admin.py:39 models.py:22
+msgid "block email"
+msgstr "ブロックするメールアドレス"
+
+#: admin.py:40 models.py:24
+msgid "block url"
+msgstr "ブロックするURL"
+
+#: admin.py:41 models.py:28
+msgid "block http referer"
+msgstr "ブロックするリファラ"
+
+#: admin.py:42 models.py:30
+msgid "block http user agent"
+msgstr "ブロックするユーザエージェント"
+
+#: admin.py:43 models.py:26
+msgid "block IP"
+msgstr "ブロックするIPアドレス"
+
+#: models.py:14
+msgid "created at"
+msgstr "作成日時"
+
+#: models.py:15
+msgid "updated at"
+msgstr "更新日時"
+
+#: models.py:18 models.py:20 models.py:22 models.py:24 models.py:26
+#: models.py:28 models.py:30
+msgid "input regexp"
+msgstr "正規表現を入力してください"
+
+#: models.py:37
+msgid "option"
+msgstr "オプション"
+
+#: models.py:38
+msgid "options"
+msgstr "オプション"
