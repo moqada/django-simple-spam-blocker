@@ -12,22 +12,22 @@ class Option(models.Model):
     """ Spam block option per Site
     """
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('updated_at'), auto_now=True)
+    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
     site = models.OneToOneField(Site)
     block_author = ValidRegexField(
-        _('block author'), blank=True, help_text='input regexp')
+        _('block author'), blank=True, help_text=_('input regexp'))
     block_content = ValidRegexField(
-        _('block content'), blank=True, help_text='input regexp')
+        _('block content'), blank=True, help_text=_('input regexp'))
     block_email = ValidRegexField(
-        _('block email'), blank=True, help_text='input regexp')
+        _('block email'), blank=True, help_text=_('input regexp'))
     block_url = ValidRegexField(
-        _('block url'), blank=True, help_text='input regexp')
+        _('block url'), blank=True, help_text=_('input regexp'))
     block_remote_addr = ValidRegexField(
-        _('block remote addr'), blank=True, help_text='input regexp')
+        _('block IP'), blank=True, help_text=_('input regexp'))
     block_http_referer = ValidRegexField(
-        _('block http referer'), blank=True, help_text='input regexp')
+        _('block http referer'), blank=True, help_text=_('input regexp'))
     block_http_user_agent = ValidRegexField(
-        _('block http user agent'), blank=True, help_text='input regexp')
+        _('block http user agent'), blank=True, help_text=_('input regexp'))
 
     block_fields = ('author', 'content', 'email', 'url',
                     'remote_addr', 'http_referer', 'http_user_agent')

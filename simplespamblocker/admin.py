@@ -40,7 +40,7 @@ class OptionAdmin(admin.ModelAdmin):
     is_block_url.short_description = _('block url')
     is_block_http_referer.short_description = _('block http referer')
     is_block_http_user_agent .short_description = _('block http user agent')
-    is_block_remote_addr.short_description = _('block remote addr')
+    is_block_remote_addr.short_description = _('block IP')
     is_block_author.boolean = True
     is_block_content.boolean = True
     is_block_email.boolean = True
