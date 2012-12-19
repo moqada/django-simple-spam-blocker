@@ -37,6 +37,9 @@ class Option(models.Model):
         verbose_name = _('option')
         verbose_name_plural = _('options')
 
+    def __unicode__(self):
+        return u'Option for %s' % self.site
+
     def save(self, **kwargs):
         super(Option, self).save(**kwargs)
         cache.delete(self.get_cache_key(self.site))
