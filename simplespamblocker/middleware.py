@@ -39,6 +39,25 @@ class SpamBlockMiddleware(object):
         if self.logger:
             self.logger.info(message)
 
+    def _get_logging_message_summary(self, block_key, blocked_value):
+        """ hook point for logging
+        """
+        return u'Blocked spam by %s: %s' % (block_key, blocked_value)
+
+    def _get_logging_message_detail(self, request, profile):
+        """ hook point for logging
+        """
+        data = {
+            'GET': request.GET,
+            'POST': request.POST,
+            'META': {
+                'REMOTE_ADDR': request.META.get('REMOTE_ADDR', ''),
+                'HTTP_REFERER': request.META.get('HTTP_REFERER', ''),
+                'HTTP_USER_AGENT': request.META.get('HTTP_USER_AGENT', ''),
+            }
+        }
+        return json.dumps(data)
+
     def _is_spam(self, request, profile):
         site = get_current_site(request)
         method = profile.get('method', None)
@@ -52,8 +71,8 @@ class SpamBlockMiddleware(object):
                 func = profile.get(key, None)
                 value = func and func(request)
             if value is not None and regexes[key] and regexes[key].search(value):
-                self._logging(u'Blocked spam by %s: %s' % (key, value))
-                self._logging(json.dumps(request.POST))
+                self._logging(self._get_logging_message_summary(key, value))
+                self._logging(self._get_logging_message_detail(request, profile))
                 return True
         return False
 
