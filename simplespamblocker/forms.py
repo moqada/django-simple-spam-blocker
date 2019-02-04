@@ -10,6 +10,6 @@ class ValidRegexField(forms.CharField):
         if value:
             try:
                 re.compile(value)
-            except re.error, e:
+            except re.error as e:
                 raise forms.ValidationError('Please input valid regexp: %s' % e)
         return value
