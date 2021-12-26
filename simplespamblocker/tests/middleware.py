@@ -27,7 +27,7 @@ DEFAULT_PROFILES_WITHOUT_METHOD = (
 
 def create_user():
     from django.contrib.auth.models import User
-    # comaptible under django 1.3
+    # compatible under django 1.3
     return User.objects.create_user('dummyuser', 'dummyuser@example.com', password='test')
 
 
